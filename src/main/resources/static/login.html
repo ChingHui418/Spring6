@@ -16,10 +16,10 @@
 		<span id="mesg"></span>
 		
 		<script type="text/javascript">
-			document.getElementById("liginForm").addEventListener("submit", async function(e) {
+			document.getElementById("loginForm").addEventListener("submit", async function(e) {
 				e.preventDefault();
-				let email = doucment.getElementById("email").value.trim();
-				let passwd = doucment.getElementById("passwd").value.trim();
+				let email = document.getElementById("email").value.trim();
+				let passwd = document.getElementById("passwd").value.trim();
 				
 				let resp = await fetch("/api/login", {
 					method: "POST",
@@ -32,9 +32,18 @@
 					})
 				})
 				
-				let datea = await resp.json();
+				let data = await resp.json();
 				console.log(data);
-			})
+				
+				if(data.success){
+					localStorage.setItem('token', data.token);
+					window.location.href = "main.html";
+				}else {
+					console.log("Login Failure");
+				}
+				
+			});
+			
 		</script>
 		
 	</body>
